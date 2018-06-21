@@ -113,7 +113,7 @@ function motivation(firstname, lastname) {
 
   // code message function here.
   return function message() {
-    return welcomeText + "firstname " + "lastname.";
+    return welcomeText + " " + firstname + " " + lastname + ".";
   };
   //Uncommment this to return the value of your message function
   return message;
@@ -150,6 +150,9 @@ var module = (function() {
   // outside our lexical scope
   return {
     // Code here.
+    publicMethod: function() {
+      return privateMethod();
+    }
   };
 })();
 
@@ -167,6 +170,12 @@ function secretNumber() {
 
   return {
     // Code here
+    addToSecret: function(num) {
+      return (secret += num);
+    },
+    takeAwayFromSecret: function(num) {
+      return (secret -= num);
+    }
   };
 }
 
@@ -187,12 +196,15 @@ function secretNumber() {
   
   Fix the code below to log the desired output.
 */
-
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
+    setTimeout(newScope(i), i * 1000);
+  }
+
+  function newScope(i) {
+    return function() {
       console.log(i);
-    }, i * 1000);
+    };
   }
 }
 timeOutCounter();
